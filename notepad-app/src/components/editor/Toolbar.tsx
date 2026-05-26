@@ -74,6 +74,13 @@ export default function Toolbar({ editor, noteId }: ToolbarProps) {
           onClick: () => editor.chain().focus().toggleUnderline().run(),
         },
         {
+          id: 'toolbar-highlight',
+          label: '🖍',
+          title: 'Seçili kelimeyi vurgula',
+          isActive: () => editor.isActive('highlight'),
+          onClick: () => editor.chain().focus().toggleHighlight().run(),
+        },
+        {
           id: 'toolbar-strike',
           label: 'S̶',
           title: 'Üstü Çizili',

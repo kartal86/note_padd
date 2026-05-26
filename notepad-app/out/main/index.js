@@ -623,6 +623,8 @@ function createWindow() {
     width: 1280,
     height: 800
   };
+  const defaultPreload = path__namespace.join(__dirname, "../preload/index.js");
+  const fallbackPreload = path__namespace.join(__dirname, "../out/preload/index.js");
   mainWindow = new electron.BrowserWindow({
     x: bounds.x,
     y: bounds.y,
@@ -633,7 +635,7 @@ function createWindow() {
     frame: false,
     titleBarStyle: "hidden",
     webPreferences: {
-      preload: path__namespace.join(__dirname, "../preload/index.js"),
+      preload: fs__namespace.existsSync(defaultPreload) ? defaultPreload : fallbackPreload,
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
@@ -654,12 +656,15 @@ function createWindow() {
       saveSettings(settings2);
     }
   });
-  if (process.env.NODE_ENV === "development" || process.env["ELECTRON_RENDERER_URL"]) {
+  const isDev = process.env.NODE_ENV === "development" || !!process.env["ELECTRON_RENDERER_URL"];
+  if (isDev) {
     mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"] || "http://localhost:5173");
     mainWindow.webContents.openDevTools({ mode: "detach" });
   } else {
-    mainWindow.loadFile(path__namespace.join(__dirname, "../renderer/index.html"));
-    mainWindow.webContents.openDevTools({ mode: "detach" });
+    const defaultIndex = path__namespace.join(__dirname, "../renderer/index.html");
+    const fallbackIndex = path__namespace.join(__dirname, "../out/renderer/index.html");
+    const loadFilePath = fs__namespace.existsSync(defaultIndex) ? defaultIndex : fallbackIndex;
+    mainWindow.loadFile(loadFilePath);
   }
   mainWindow.webContents.on("console-message", (event, level, message, line, sourceId) => {
     console.log(`[Renderer] ${message} (line ${line})`);

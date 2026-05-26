@@ -56,6 +56,9 @@ function createWindow(): void {
     height: 800
   };
 
+  const defaultPreload = path.join(__dirname, '../preload/index.js');
+  const fallbackPreload = path.join(__dirname, '../out/preload/index.js');
+
   mainWindow = new BrowserWindow({
     x: bounds.x,
     y: bounds.y,
@@ -66,7 +69,7 @@ function createWindow(): void {
     frame: false,
     titleBarStyle: 'hidden',
     webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
+      preload: fs.existsSync(defaultPreload) ? defaultPreload : fallbackPreload,
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false, // required for better-sqlite3
@@ -92,12 +95,16 @@ function createWindow(): void {
   });
 
   // Load app
-  if (process.env.NODE_ENV === 'development' || process.env['ELECTRON_RENDERER_URL']) {
+  const isDev = process.env.NODE_ENV === 'development' || !!process.env['ELECTRON_RENDERER_URL'];
+
+  if (isDev) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] || 'http://localhost:5173');
     mainWindow.webContents.openDevTools({ mode: 'detach' });
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
-    mainWindow.webContents.openDevTools({ mode: 'detach' });
+    const defaultIndex = path.join(__dirname, '../renderer/index.html');
+    const fallbackIndex = path.join(__dirname, '../out/renderer/index.html');
+    const loadFilePath = fs.existsSync(defaultIndex) ? defaultIndex : fallbackIndex;
+    mainWindow.loadFile(loadFilePath);
   }
 
   mainWindow.webContents.on('console-message', (event, level, message, line, sourceId) => {

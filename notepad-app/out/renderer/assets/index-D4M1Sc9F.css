@@ -219,7 +219,9 @@ input, textarea {
    Sidebar
 ----------------------------------------------- */
 .sidebar {
-  width: 220px;
+  width: clamp(220px, 18vw, 320px);
+  min-width: 220px;
+  max-width: 320px;
   background: var(--bg-secondary);
   border-right: 1px solid var(--border-subtle);
   display: flex;
@@ -308,6 +310,7 @@ input, textarea {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  word-break: break-word;
 }
 .notebook-count {
   font-size: 10px;
@@ -351,7 +354,9 @@ input, textarea {
    Note List (middle panel)
 ----------------------------------------------- */
 .note-list-panel {
-  width: 280px;
+  width: clamp(260px, 20vw, 380px);
+  min-width: 260px;
+  max-width: 380px;
   background: var(--bg-primary);
   border-right: 1px solid var(--border-subtle);
   display: flex;
@@ -595,6 +600,12 @@ input, textarea {
   font-size: 13px;
   max-width: 280px;
   line-height: 1.6;
+}
+.ProseMirror mark {
+  background: rgba(255, 229, 100, 0.6);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 2px;
 }
 /* -----------------------------------------------
    Context Menu

@@ -31653,7 +31653,7 @@ React$2.forwardRef((props, ref) => {
     } })
   );
 });
-const inputRegex$6 = /^\s*>\s$/;
+const inputRegex$7 = /^\s*>\s$/;
 const Blockquote = Node2.create({
   name: "blockquote",
   addOptions() {
@@ -31693,7 +31693,7 @@ const Blockquote = Node2.create({
   addInputRules() {
     return [
       wrappingInputRule({
-        find: inputRegex$6,
+        find: inputRegex$7,
         type: this.type
       })
     ];
@@ -31778,7 +31778,7 @@ const Bold = Mark2.create({
 });
 const ListItemName$1 = "listItem";
 const TextStyleName$1 = "textStyle";
-const inputRegex$5 = /^\s*([-+*])\s$/;
+const inputRegex$6 = /^\s*([-+*])\s$/;
 const BulletList = Node2.create({
   name: "bulletList",
   addOptions() {
@@ -31818,12 +31818,12 @@ const BulletList = Node2.create({
   },
   addInputRules() {
     let inputRule = wrappingInputRule({
-      find: inputRegex$5,
+      find: inputRegex$6,
       type: this.type
     });
     if (this.options.keepMarks || this.options.keepAttributes) {
       inputRule = wrappingInputRule({
-        find: inputRegex$5,
+        find: inputRegex$6,
         type: this.type,
         keepMarks: this.options.keepMarks,
         keepAttributes: this.options.keepAttributes,
@@ -31838,8 +31838,8 @@ const BulletList = Node2.create({
     ];
   }
 });
-const inputRegex$4 = /(^|[^`])`([^`]+)`(?!`)/;
-const pasteRegex$1 = /(^|[^`])`([^`]+)`(?!`)/g;
+const inputRegex$5 = /(^|[^`])`([^`]+)`(?!`)/;
+const pasteRegex$2 = /(^|[^`])`([^`]+)`(?!`)/g;
 const Code = Mark2.create({
   name: "code",
   addOptions() {
@@ -31879,7 +31879,7 @@ const Code = Mark2.create({
   addInputRules() {
     return [
       markInputRule({
-        find: inputRegex$4,
+        find: inputRegex$5,
         type: this.type
       })
     ];
@@ -31887,7 +31887,7 @@ const Code = Mark2.create({
   addPasteRules() {
     return [
       markPasteRule({
-        find: pasteRegex$1,
+        find: pasteRegex$2,
         type: this.type
       })
     ];
@@ -33326,7 +33326,7 @@ const ListItem = Node2.create({
 });
 const ListItemName = "listItem";
 const TextStyleName = "textStyle";
-const inputRegex$3 = /^(\d+)\.\s$/;
+const inputRegex$4 = /^(\d+)\.\s$/;
 const OrderedList = Node2.create({
   name: "orderedList",
   addOptions() {
@@ -33383,14 +33383,14 @@ const OrderedList = Node2.create({
   },
   addInputRules() {
     let inputRule = wrappingInputRule({
-      find: inputRegex$3,
+      find: inputRegex$4,
       type: this.type,
       getAttributes: (match2) => ({ start: +match2[1] }),
       joinPredicate: (match2, node) => node.childCount + node.attrs.start === +match2[1]
     });
     if (this.options.keepMarks || this.options.keepAttributes) {
       inputRule = wrappingInputRule({
-        find: inputRegex$3,
+        find: inputRegex$4,
         type: this.type,
         keepMarks: this.options.keepMarks,
         keepAttributes: this.options.keepAttributes,
@@ -33435,8 +33435,8 @@ const Paragraph = Node2.create({
     };
   }
 });
-const inputRegex$2 = /(?:^|\s)(~~(?!\s+~~)((?:[^~]+))~~(?!\s+~~))$/;
-const pasteRegex = /(?:^|\s)(~~(?!\s+~~)((?:[^~]+))~~(?!\s+~~))/g;
+const inputRegex$3 = /(?:^|\s)(~~(?!\s+~~)((?:[^~]+))~~(?!\s+~~))$/;
+const pasteRegex$1 = /(?:^|\s)(~~(?!\s+~~)((?:[^~]+))~~(?!\s+~~))/g;
 const Strike = Mark2.create({
   name: "strike",
   addOptions() {
@@ -33486,7 +33486,7 @@ const Strike = Mark2.create({
   addInputRules() {
     return [
       markInputRule({
-        find: inputRegex$2,
+        find: inputRegex$3,
         type: this.type
       })
     ];
@@ -33494,7 +33494,7 @@ const Strike = Mark2.create({
   addPasteRules() {
     return [
       markPasteRule({
-        find: pasteRegex,
+        find: pasteRegex$1,
         type: this.type
       })
     ];
@@ -33565,7 +33565,7 @@ const StarterKit = Extension.create({
     return extensions;
   }
 });
-const inputRegex$1 = /(?:^|\s)(!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\))$/;
+const inputRegex$2 = /(?:^|\s)(!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\))$/;
 const Image = Node2.create({
   name: "image",
   addOptions() {
@@ -33618,7 +33618,7 @@ const Image = Node2.create({
   addInputRules() {
     return [
       nodeInputRule({
-        find: inputRegex$1,
+        find: inputRegex$2,
         type: this.type,
         getAttributes: (match2) => {
           const [, , alt, src, title] = match2;
@@ -33726,7 +33726,7 @@ const TaskList = Node2.create({
     };
   }
 });
-const inputRegex = /^\s*(\[([( |x])?\])\s$/;
+const inputRegex$1 = /^\s*(\[([( |x])?\])\s$/;
 const TaskItem = Node2.create({
   name: "taskItem",
   addOptions() {
@@ -33866,7 +33866,7 @@ const TaskItem = Node2.create({
   addInputRules() {
     return [
       wrappingInputRule({
-        find: inputRegex,
+        find: inputRegex$1,
         type: this.type,
         getAttributes: (match2) => ({
           checked: match2[match2.length - 1] === "x"
@@ -33915,6 +33915,81 @@ const Underline = Mark2.create({
       "Mod-u": () => this.editor.commands.toggleUnderline(),
       "Mod-U": () => this.editor.commands.toggleUnderline()
     };
+  }
+});
+const inputRegex = /(?:^|\s)(==(?!\s+==)((?:[^=]+))==(?!\s+==))$/;
+const pasteRegex = /(?:^|\s)(==(?!\s+==)((?:[^=]+))==(?!\s+==))/g;
+const Highlight = Mark2.create({
+  name: "highlight",
+  addOptions() {
+    return {
+      multicolor: false,
+      HTMLAttributes: {}
+    };
+  },
+  addAttributes() {
+    if (!this.options.multicolor) {
+      return {};
+    }
+    return {
+      color: {
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-color") || element.style.backgroundColor,
+        renderHTML: (attributes) => {
+          if (!attributes.color) {
+            return {};
+          }
+          return {
+            "data-color": attributes.color,
+            style: `background-color: ${attributes.color}; color: inherit`
+          };
+        }
+      }
+    };
+  },
+  parseHTML() {
+    return [
+      {
+        tag: "mark"
+      }
+    ];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ["mark", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+  },
+  addCommands() {
+    return {
+      setHighlight: (attributes) => ({ commands: commands2 }) => {
+        return commands2.setMark(this.name, attributes);
+      },
+      toggleHighlight: (attributes) => ({ commands: commands2 }) => {
+        return commands2.toggleMark(this.name, attributes);
+      },
+      unsetHighlight: () => ({ commands: commands2 }) => {
+        return commands2.unsetMark(this.name);
+      }
+    };
+  },
+  addKeyboardShortcuts() {
+    return {
+      "Mod-Shift-h": () => this.editor.commands.toggleHighlight()
+    };
+  },
+  addInputRules() {
+    return [
+      markInputRule({
+        find: inputRegex,
+        type: this.type
+      })
+    ];
+  },
+  addPasteRules() {
+    return [
+      markPasteRule({
+        find: pasteRegex,
+        type: this.type
+      })
+    ];
   }
 });
 const Placeholder = Extension.create({
@@ -34001,6 +34076,11 @@ function RichEditor({ noteId, initialContent, onEditorReady, onChange }) {
         nested: true
       }),
       Underline,
+      Highlight.configure({
+        HTMLAttributes: {
+          class: "text-highlight"
+        }
+      }),
       Placeholder.configure({
         placeholder: "Yazmaya başlayın..."
       })
@@ -34150,6 +34230,13 @@ function Toolbar({ editor, noteId }) {
           title: "Altı Çizili (Ctrl+U)",
           isActive: () => editor.isActive("underline"),
           onClick: () => editor.chain().focus().toggleUnderline().run()
+        },
+        {
+          id: "toolbar-highlight",
+          label: "🖍",
+          title: "Seçili kelimeyi vurgula",
+          isActive: () => editor.isActive("highlight"),
+          onClick: () => editor.chain().focus().toggleHighlight().run()
         },
         {
           id: "toolbar-strike",

@@ -6,6 +6,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
 import Underline from '@tiptap/extension-underline';
+import Highlight from '@tiptap/extension-highlight';
 import { Editor } from '@tiptap/react';
 import Placeholder from '@tiptap/extension-placeholder';
 
@@ -49,6 +50,11 @@ export default function RichEditor({ noteId, initialContent, onEditorReady, onCh
         nested: true,
       }),
       Underline,
+      Highlight.configure({
+        HTMLAttributes: {
+          class: 'text-highlight',
+        },
+      }),
       Placeholder.configure({
         placeholder: 'Yazmaya başlayın...',
       }),
